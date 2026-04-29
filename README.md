@@ -1,19 +1,16 @@
-# interview-analyst
+# UX Research Analyst — A Claude Code Skill
 
-A Claude Code skill for qualitative UX research. It helps researchers move faster through interview transcripts — surfacing patterns, organizing quotes, and structuring a narrative draft — without replacing the researcher's judgment.
+A skill for qualitative researchers. Point it at a folder of interview transcripts and it helps you move faster — surfacing patterns, organizing quotes, and structuring a first draft of your narrative — without replacing your judgment as the person who was in the room.
 
 ---
 
-## Disclaimer
+## A note before you use this
 
-**This skill is a research aid, not a research analyst.**
+This is a research aid, not a research analyst.
 
-It is designed to supplement your work as a researcher, not substitute it. AI-generated analysis is prone to error — it can misread tone, misattribute quotes, or miss meaning that requires human context. Everything this skill produces is a hypothesis, not a conclusion.
+It is designed to supplement your work, not substitute it. AI-generated analysis is prone to error — it can misread tone, misattribute quotes, or miss meaning that only you have the context to catch. Everything it produces is a hypothesis, not a conclusion.
 
-**You are responsible for:**
-- Verifying every quote and citation against the source transcript before using it
-- Cross-checking interpretations against your own notes and field memory
-- Treating all output as a starting point that relies on and builds from your analysis — not the other way around
+You are responsible for verifying every quote against the source transcript, cross-checking interpretations against your own field notes, and treating all output as a starting point that builds from your analysis — not the other way around.
 
 If the output contradicts your instincts, trust your instincts first. Then use the transcripts to arbitrate.
 
@@ -21,103 +18,71 @@ If the output contradicts your instincts, trust your instincts first. Then use t
 
 ## What it does
 
-- Reads transcript files (`.csv`, `.txt`, `.md`, `.vtt`, `.srt`) from a directory or individually
-- Asks the researcher for their brief, early instincts, and preferred output style before starting
-- Detects emotional signals, hedging language, frustration markers, and enthusiasm patterns
-- Distinguishes what participants *say they do* from what their stories *reveal they actually do*
-- Ensures all participants are represented with roughly equal coverage
-- Frames findings as signals and interpretations, not conclusions — always with sample size acknowledged
-- Follows the researcher's narrative lead; challenges when the data diverges, but defers to researcher judgment
+- Reads transcripts from a folder or individual files (CSV, TXT, plain notes, or subtitle files from recordings)
+- Asks you for your research brief, early instincts, and preferred output style before it starts
+- Detects emotional signals, hedging language, frustration markers, and enthusiasm in how participants spoke
+- Separates what participants *said they do* from what their stories *reveal they actually do*
+- Makes sure every participant is represented — no voice gets left out
+- Frames everything as signals and interpretations, never conclusions — always with sample size acknowledged
+- Follows your narrative lead; will flag when the data points elsewhere, but defers to your judgment
 
-### Output formats
+### What you can generate
 
-| Command | Output |
+| What you type | What you get |
 |---|---|
-| `/interview-analyst <path>` | Synthesis report in-conversation |
-| `/interview-analyst /report` | DOCX report via pandoc |
-| `/interview-analyst /deck` | PPTX slide deck via python-pptx |
-| `/interview-analyst /journey` | Journey map (markdown or mermaid) |
-| `/interview-analyst /arc` | Emotional arc diagram (ASCII or mermaid) |
-| `/interview-analyst /quoteboard` | Annotated quote board grouped by theme |
+| `/interview-analyst /path/to/folder` | Full synthesis report in the conversation |
+| `/interview-analyst /report` | A Word document (requires pandoc) |
+| `/interview-analyst /deck` | A slide deck (requires python-pptx) |
+| `/interview-analyst /journey` | A journey map |
+| `/interview-analyst /arc` | An emotional arc diagram |
+| `/interview-analyst /quoteboard` | Quotes grouped by theme with emotional tags |
 
 ---
 
-## Installation
+## How to install it
 
-**One-liner:**
+You'll need [Claude Code](https://claude.ai/code) installed first.
+
+Then run this in your terminal:
+
 ```bash
 mkdir -p ~/.claude/skills/interview-analyst && \
   curl -o ~/.claude/skills/interview-analyst/SKILL.md \
-  https://raw.githubusercontent.com/<your-username>/<your-repo>/main/interview-analyst/SKILL.md
+  https://raw.githubusercontent.com/radha-nath/ux-analyst/main/SKILL.md
 ```
 
-**Or clone and copy:**
-```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cp -r <your-repo>/interview-analyst ~/.claude/skills/
-```
+Restart Claude Code and the `/interview-analyst` command will be available.
 
-Then restart Claude Code. The skill will appear as `/interview-analyst`.
-
-### Optional dependencies
-
-Some output formats require additional tools:
-
-- **DOCX reports** (`/report`): requires [pandoc](https://pandoc.org/installing.html)
-- **PPTX decks** (`/deck`): requires [python-pptx](https://python-pptx.readthedocs.io) (`pip install python-pptx`)
-- **Journey maps / arc diagrams**: plain text output works without any dependencies; mermaid rendering requires a compatible viewer
+If you want Word doc or slide deck exports, you'll also need:
+- [pandoc](https://pandoc.org/installing.html) for Word documents
+- `pip install python-pptx` for slide decks
 
 ---
 
-## Usage
+## How to use it
 
-### Analyze a directory of transcripts
+**Analyze a whole folder of transcripts:**
 ```
-/interview-analyst /path/to/transcripts/
+/interview-analyst /path/to/your/transcripts/
 ```
-The skill will list all transcript files found and ask you to confirm before proceeding.
+It will list the files it finds and ask you to confirm before starting.
 
-### Analyze a single file
+**Analyze one file:**
 ```
 /interview-analyst path/to/interview.csv
 ```
 
-### Analyze multiple specific files
-```
-/interview-analyst p1.txt p2.txt p3.txt
-```
+**At the start, it will ask you three things:**
 
-### Generate outputs from a completed analysis
-```
-/interview-analyst /report
-/interview-analyst /deck
-/interview-analyst /quoteboard
-```
+1. What was the goal of this research? What questions were you trying to answer?
+2. Do you have any early instincts or findings you want explored?
+3. Do you want the output plain and direct, or more formal?
 
-### What to expect at the start
-
-Before analyzing, the skill will ask you three questions in a single message:
-
-1. **Research brief** — What was the goal of this research? What questions were you trying to answer?
-2. **Researcher's lens** — Any early instincts, mental models, or findings you want surfaced or explored?
-3. **Output style** — Plain and direct, or more formal/academic? (Default: plain)
-
-Your answers shape the entire analysis. The more specific you are, the more useful the output.
+Your answers shape the whole analysis. The more specific you are, the more useful it gets.
 
 ---
 
-## Supported transcript formats
-
-| Format | Notes |
-|---|---|
-| `.csv` | Expects columns: `Speaker`, `Time`, `Transcript` (or similar) |
-| `.txt` | Plain text, any structure |
-| `.md` | Markdown-formatted notes or transcripts |
-| `.vtt` / `.srt` | Subtitle/caption files from video recordings |
-
----
-
-## Design principles
+## The philosophy behind it
 
 This skill was built with a specific philosophy. If you modify it, these are worth preserving:
 
@@ -129,25 +94,19 @@ This skill was built with a specific philosophy. If you modify it, these are wor
 
 ---
 
-## Contributing
+## Want to contribute or suggest changes?
 
-Contributions welcome — especially from researchers who've used this in practice.
+This was built from real research practice and will keep getting better with input from people who use it. Good areas to push on: support for more transcript formats, non-English transcripts, richer visual outputs, and prompt refinements from actual field use.
 
-Good areas for improvement:
-- Support for additional transcript formats
-- Better handling of non-English transcripts
-- Improved journey map and arc diagram outputs
-- Prompt refinements based on real research use cases
-
-Please open an issue before submitting a large change, so we can discuss approach first.
+Open an issue or reach out before making a big change — happy to think through it together.
 
 ---
 
-## License
+## Using or sharing this
 
 Free to use and modify by researchers. Credit appreciated.
 
-Please preserve the design philosophy when adapting this skill. If you have ideas for how to evolve it — reach out via GitHub: [@radha-nath](https://github.com/radha-nath)
+Please preserve the design philosophy when adapting it. If you have ideas for how to evolve it — reach out: [@radha-nath](https://github.com/radha-nath)
 
 ---
 
