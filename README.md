@@ -1,4 +1,4 @@
-# UX Research Analyst — A Claude Code Skill
+# Research Aid — A Claude Code Skill
 
 A skill for qualitative researchers. Point it at a folder of interview transcripts and it helps you move faster — surfacing patterns, organizing quotes, and structuring a first draft of your narrative — without replacing your judgment as the person who was in the room.
 
