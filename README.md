@@ -1,6 +1,6 @@
-# Research Aid — A Claude Code Skill
+# Research Study Aid — Claude Code Skills for Qualitative Researchers
 
-A skill for qualitative researchers. Point it at a folder of interview transcripts and it helps you move faster — surfacing patterns, organizing quotes, and structuring a first draft of your narrative — without replacing your judgment as the person who was in the room.
+Two skills for product researchers: one for synthesizing a set of transcripts, one for turning a single discovery interview into a shareable team debrief. Both are built on the same philosophy — they're tools that support your judgment, not replace it.
 
 ---
 
@@ -30,12 +30,12 @@ If the output contradicts your instincts, trust your instincts first. Then use t
 
 | What you type | What you get |
 |---|---|
-| `/research-aid /path/to/folder` | Full synthesis report in the conversation |
-| `/research-aid /report` | A Word document (requires pandoc) |
-| `/research-aid /deck` | A slide deck (requires python-pptx) |
-| `/research-aid /journey` | A journey map |
-| `/research-aid /arc` | An emotional arc diagram |
-| `/research-aid /quoteboard` | Quotes grouped by theme with emotional tags |
+| `/research-study-aid /path/to/folder` | Full synthesis report in the conversation |
+| `/research-study-aid /report` | A Word document (requires pandoc) |
+| `/research-study-aid /deck` | A slide deck (requires python-pptx) |
+| `/research-study-aid /journey` | A journey map |
+| `/research-study-aid /arc` | An emotional arc diagram |
+| `/research-study-aid /quoteboard` | Quotes grouped by theme with emotional tags |
 
 ---
 
@@ -51,7 +51,7 @@ mkdir -p ~/.claude/skills/research-aid && \
   https://raw.githubusercontent.com/radha-nath/ux-analyst/main/SKILL.md
 ```
 
-Restart Claude Code and the `/research-aid` command will be available.
+Restart Claude Code and the `/research-study-aid` command will be available.
 
 If you want Word doc or slide deck exports, you'll also need:
 - [pandoc](https://pandoc.org/installing.html) for Word documents
@@ -63,13 +63,13 @@ If you want Word doc or slide deck exports, you'll also need:
 
 **Analyze a whole folder of transcripts:**
 ```
-/research-aid /path/to/your/transcripts/
+/research-study-aid /path/to/your/transcripts/
 ```
 It will list the files it finds and ask you to confirm before starting.
 
 **Analyze one file:**
 ```
-/research-aid path/to/interview.csv
+/research-study-aid path/to/interview.csv
 ```
 
 **At the start, it will ask you three things:**
